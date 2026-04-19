@@ -12,14 +12,34 @@
 </head>
 <body>
   <header class="site-header">
+    <div class="header-badge">Dorm Experience Review Board</div>
     <h1>Ideas to Improve University Dorms</h1>
-    <p>Explore practical and fun upgrades that could make dorm life better for students.</p>
-    <p>Open any idea to rate it, read feedback, and add your own review.</p>
+    <p class="header-lead">Explore the features students want most in the new dorms, then rate each idea and leave feedback for everyone else to see.</p>
+    <div class="hero-stats" aria-label="Site overview">
+      <div class="hero-stat">
+        <span class="hero-stat-label">Ideas</span>
+        <strong class="hero-stat-value" id="featureCount">8</strong>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-label">Reviews</span>
+        <strong class="hero-stat-value" id="totalReviewCount">0</strong>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-label">Average score</span>
+        <strong class="hero-stat-value" id="overallAverage">0.0/5</strong>
+      </div>
+    </div>
   </header>
 
   <main>
     <section class="intro-box" id="homeSection" aria-labelledby="optionsHeading">
-      <h2 class="section-title" id="optionsHeading">Choose an option</h2>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Feature ideas</p>
+          <h2 class="section-title" id="optionsHeading">Choose an option to review</h2>
+        </div>
+        <p class="section-copy">Each card opens a full feature view with ratings, comments, and a quick form for student feedback.</p>
+      </div>
       <div class="options-grid" id="optionsGrid" role="list"></div>
     </section>
 
@@ -31,41 +51,58 @@
       hidden
     >
       <button type="button" class="back-btn" id="backBtn">Back to all ideas</button>
-      <img class="detail-image" id="detailImage" alt="" />
-      <h2 id="detailTitle"></h2>
-      <p class="detail-tag" id="detailTag"></p>
-      <p id="detailDescription"></p>
+      <div class="detail-shell">
+        <div class="detail-hero">
+          <img class="detail-image" id="detailImage" alt="" />
+          <div class="detail-copy">
+            <p class="eyebrow">Selected feature</p>
+            <h2 id="detailTitle"></h2>
+            <p class="detail-tag" id="detailTag"></p>
+            <p class="detail-description" id="detailDescription"></p>
+            <div class="rating-summary" id="ratingSummary"></div>
+            <p class="server-status" id="serverStatus" role="status" aria-live="polite"></p>
+          </div>
+        </div>
 
-      <div class="rating-summary" id="ratingSummary"></div>
-      <p class="server-status" id="serverStatus" role="status" aria-live="polite"></p>
+        <div class="detail-columns">
+          <form id="reviewForm" class="review-form-card" novalidate>
+            <p class="eyebrow">Leave feedback</p>
+            <h3 class="panel-title">Share your review</h3>
 
-      <form id="reviewForm" novalidate>
-        <fieldset class="rating-fieldset">
-          <legend>Rate this idea</legend>
-          <div class="stars" id="starContainer" role="radiogroup" aria-label="Select a rating"></div>
-          <p class="form-hint" id="ratingHint">Choose 1 to 5 stars before submitting your review.</p>
-        </fieldset>
+            <fieldset class="rating-fieldset">
+              <legend>Rate this idea</legend>
+              <div class="stars" id="starContainer" role="radiogroup" aria-label="Select a rating"></div>
+              <p class="form-hint" id="ratingHint">Choose 1 to 5 stars before submitting your review.</p>
+            </fieldset>
 
-        <label class="input-label" for="reviewerName">Your name</label>
-        <input type="text" id="reviewerName" name="reviewerName" placeholder="Your name" required />
+            <label class="input-label" for="reviewerName">Your name</label>
+            <input type="text" id="reviewerName" name="reviewerName" placeholder="Your name" required />
 
-        <label class="input-label" for="reviewText">Your review</label>
-        <textarea
-          id="reviewText"
-          name="reviewText"
-          placeholder="Share what you think about this dorm improvement idea"
-          required
-          rows="5"
-        ></textarea>
+            <label class="input-label" for="reviewText">Your review</label>
+            <textarea
+              id="reviewText"
+              name="reviewText"
+              placeholder="Share what you think about this dorm improvement idea"
+              required
+              rows="5"
+            ></textarea>
 
-        <p class="form-error" id="formError" role="alert"></p>
-        <button type="submit" class="submit-btn">Submit review</button>
-      </form>
+            <p class="form-error" id="formError" role="alert"></p>
+            <button type="submit" class="submit-btn">Submit review</button>
+          </form>
 
-      <section class="reviews-section" aria-labelledby="reviewsHeading">
-        <h3 id="reviewsHeading">Student reviews</h3>
-        <div id="reviewsContainer"></div>
-      </section>
+          <section class="reviews-section" aria-labelledby="reviewsHeading">
+            <div class="reviews-header">
+              <div>
+                <p class="eyebrow">Student opinions</p>
+                <h3 class="panel-title" id="reviewsHeading">Community reviews</h3>
+              </div>
+              <p class="reviews-meta" id="reviewsMeta">0 reviews so far</p>
+            </div>
+            <div id="reviewsContainer"></div>
+          </section>
+        </div>
+      </div>
     </section>
   </main>
 

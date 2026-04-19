@@ -89,6 +89,10 @@ const reviewInput = document.getElementById("reviewText");
 const formError = document.getElementById("formError");
 const backBtn = document.getElementById("backBtn");
 const serverStatus = document.getElementById("serverStatus");
+const featureCount = document.getElementById("featureCount");
+const totalReviewCount = document.getElementById("totalReviewCount");
+const overallAverage = document.getElementById("overallAverage");
+const reviewsMeta = document.getElementById("reviewsMeta");
 
 let selectedOption = null;
 let currentRating = 0;
@@ -150,6 +154,7 @@ function renderCards() {
   dormOptions.forEach((option) => {
     grid.appendChild(buildCard(option));
   });
+  renderOverviewStats();
 }
 
 function openOption(optionId) {
@@ -243,6 +248,7 @@ function updateStars() {
 function renderRatingSummary() {
   if (!selectedOption) {
     ratingSummary.textContent = "";
+    reviewsMeta.textContent = "0 reviews so far";
     return;
   }
 
@@ -250,12 +256,14 @@ function renderRatingSummary() {
 
   if (count === 0) {
     ratingSummary.textContent = "No ratings yet. Be the first student to review this idea.";
+    reviewsMeta.textContent = "0 reviews so far";
     return;
   }
 
   const total = selectedOption.reviews.reduce((sum, review) => sum + review.rating, 0);
   const average = (total / count).toFixed(1);
   ratingSummary.textContent = `Average rating: ${average}/5 from ${count} review${count === 1 ? "" : "s"}.`;
+  reviewsMeta.textContent = `${count} review${count === 1 ? "" : "s"} so far`;
 }
 
 function renderReviews() {
@@ -389,6 +397,20 @@ async function handleSubmit(event) {
 function setServerStatus(message, isError = false) {
   serverStatus.textContent = message;
   serverStatus.classList.toggle("error", isError);
+}
+
+function renderOverviewStats() {
+  const totalFeatures = dormOptions.length;
+  const allReviews = dormOptions.flatMap((option) => option.reviews);
+  const reviewCount = allReviews.length;
+  const average =
+    reviewCount === 0
+      ? "0.0/5"
+      : `${(allReviews.reduce((sum, review) => sum + review.rating, 0) / reviewCount).toFixed(1)}/5`;
+
+  featureCount.textContent = String(totalFeatures);
+  totalReviewCount.textContent = String(reviewCount);
+  overallAverage.textContent = average;
 }
 
 backBtn.addEventListener("click", closeOption);
