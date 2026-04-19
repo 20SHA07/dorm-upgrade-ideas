@@ -13,14 +13,14 @@ drop policy if exists "Anyone can read reviews" on public.reviews;
 create policy "Anyone can read reviews"
 on public.reviews
 for select
-to anon
+to public
 using (true);
 
 drop policy if exists "Anyone can add reviews" on public.reviews;
 create policy "Anyone can add reviews"
 on public.reviews
 for insert
-to anon
+to public
 with check (
   feature_id between 1 and 8
   and char_length(trim(reviewer_name)) between 1 and 60

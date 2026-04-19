@@ -115,6 +115,7 @@ function buildCard(option) {
   card.className = "option-card";
   card.setAttribute("role", "listitem");
   card.setAttribute("aria-label", `Open details for ${option.title}`);
+  card.style.setProperty("--stagger", `${(option.id - 1) * 70}ms`);
 
   const image = document.createElement("img");
   image.className = "card-image";
@@ -135,6 +136,11 @@ function buildCard(option) {
   tag.className = "tag";
   tag.textContent = option.tag;
   card.appendChild(tag);
+
+  const average = document.createElement("div");
+  average.className = "card-rating-summary";
+  average.textContent = getCardAverageLabel(option.reviews);
+  card.appendChild(average);
 
   const count = document.createElement("p");
   count.className = "card-review-count";
@@ -280,9 +286,10 @@ function renderReviews() {
   selectedOption.reviews
     .slice()
     .reverse()
-    .forEach((review) => {
+    .forEach((review, index) => {
       const item = document.createElement("article");
       item.className = "review-item";
+      item.style.setProperty("--review-delay", `${index * 55}ms`);
 
       const header = document.createElement("div");
       header.className = "review-item-header";
@@ -411,6 +418,18 @@ function renderOverviewStats() {
   featureCount.textContent = String(totalFeatures);
   totalReviewCount.textContent = String(reviewCount);
   overallAverage.textContent = average;
+}
+
+function getCardAverageLabel(reviews) {
+  if (!reviews.length) {
+    return "No ratings yet";
+  }
+
+  const average = (
+    reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
+  ).toFixed(1);
+
+  return `${average}/5 average rating`;
 }
 
 backBtn.addEventListener("click", closeOption);

@@ -141,9 +141,10 @@ function renderAdminReviews(reviews) {
     return;
   }
 
-  reviews.forEach((review) => {
+  reviews.forEach((review, index) => {
     const item = document.createElement("article");
     item.className = "review-item admin-review-item";
+    item.style.setProperty("--review-delay", `${index * 45}ms`);
 
     const meta = document.createElement("div");
     meta.className = "admin-review-meta";
