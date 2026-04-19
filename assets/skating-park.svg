@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-labelledby="title desc">
+  <title id="title">Skating Park</title>
+  <desc id="desc">Illustration of a skating park with ramps.</desc>
+  <rect width="800" height="500" fill="#eef1e5"/>
+  <rect width="800" height="160" fill="#52604a"/>
+  <path d="M90 360c40-120 120-120 160 0h-160z" fill="#8b2323"/>
+  <path d="M280 390c55-100 135-100 190 0h-190z" fill="#6f7d68"/>
+  <rect x="530" y="250" width="170" height="120" rx="30" fill="#d9a323"/>
+  <text x="76" y="92" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700" fill="#f2e9d8">Skating Park</text>
+  <text x="552" y="320" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#2b2b2b">Ramps</text>
+</svg>

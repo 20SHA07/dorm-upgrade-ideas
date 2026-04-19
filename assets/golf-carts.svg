@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-labelledby="title desc">
+  <title id="title">Golf Carts</title>
+  <desc id="desc">Illustration of a campus golf cart.</desc>
+  <rect width="800" height="500" fill="#edf4e5"/>
+  <rect width="800" height="150" fill="#52604a"/>
+  <rect x="190" y="250" width="240" height="90" rx="24" fill="#8b2323"/>
+  <rect x="235" y="190" width="155" height="60" rx="16" fill="#f2e9d8"/>
+  <rect x="205" y="180" width="230" height="14" rx="7" fill="#2b2b2b"/>
+  <circle cx="248" cy="362" r="34" fill="#2b2b2b"/>
+  <circle cx="390" cy="362" r="34" fill="#2b2b2b"/>
+  <text x="74" y="90" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700" fill="#f2e9d8">Golf Carts</text>
+  <text x="502" y="304" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#2b2b2b">Easy campus transport</text>
+</svg>

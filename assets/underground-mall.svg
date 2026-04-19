@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-labelledby="title desc">
+  <title id="title">Underground Mall</title>
+  <desc id="desc">Illustration of an underground shopping tunnel.</desc>
+  <rect width="800" height="500" fill="#f3efe7"/>
+  <rect width="800" height="160" fill="#5a5a5a"/>
+  <path d="M120 430l140-180h280l140 180z" fill="#8b2323"/>
+  <rect x="210" y="275" width="84" height="88" fill="#f2e9d8"/>
+  <rect x="358" y="275" width="84" height="88" fill="#f2e9d8"/>
+  <rect x="506" y="275" width="84" height="88" fill="#f2e9d8"/>
+  <text x="70" y="94" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700" fill="#f2e9d8">Underground Mall</text>
+  <text x="287" y="408" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#f2e9d8">Shops &amp; Cafes</text>
+</svg>

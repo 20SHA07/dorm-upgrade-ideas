@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-labelledby="title desc">
+  <title id="title">Theatre with Bean Bags</title>
+  <desc id="desc">Illustration of a cozy theatre with bean bags.</desc>
+  <rect width="800" height="500" fill="#f3eadb"/>
+  <rect width="800" height="150" fill="#8b2323"/>
+  <rect x="160" y="180" width="480" height="120" rx="18" fill="#2b2b2b"/>
+  <ellipse cx="250" cy="370" rx="76" ry="42" fill="#52604a"/>
+  <ellipse cx="400" cy="390" rx="88" ry="48" fill="#d9a323"/>
+  <ellipse cx="555" cy="370" rx="76" ry="42" fill="#8b2323"/>
+  <text x="72" y="92" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700" fill="#f2e9d8">Theatre with Bean Bags</text>
+</svg>

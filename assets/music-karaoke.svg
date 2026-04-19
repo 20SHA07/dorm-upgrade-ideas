@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-labelledby="title desc">
+  <title id="title">Music and Karaoke</title>
+  <desc id="desc">Illustration of a music and karaoke room.</desc>
+  <rect width="800" height="500" fill="#f6efe4"/>
+  <rect width="800" height="150" fill="#5a5a5a"/>
+  <circle cx="245" cy="278" r="70" fill="#8b2323"/>
+  <rect x="430" y="200" width="34" height="170" rx="17" fill="#52604a"/>
+  <circle cx="447" cy="180" r="44" fill="#d9a323"/>
+  <path d="M190 360c45-50 110-50 155 0" fill="none" stroke="#f2e9d8" stroke-width="12" stroke-linecap="round"/>
+  <text x="72" y="92" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700" fill="#f2e9d8">Music &amp; Karaoke</text>
+</svg>
