@@ -5,7 +5,7 @@ const dormOptions = [
     shortText: "Relaxation and swimming area",
     description: "A pool and jacuzzi would help students relax and unwind after classes.",
     tag: "Wellbeing",
-    image: "assets/pool-jacuzzi.svg",
+    image: "images/Pool jaz.jpg.jpeg",
     reviews: []
   },
   {
@@ -14,7 +14,7 @@ const dormOptions = [
     shortText: "Outdoor skating space",
     description: "A skating park would give students a fun and active way to spend free time.",
     tag: "Recreation",
-    image: "assets/skating-park.svg",
+    image: "images/skaetpark.jpg.jpeg",
     reviews: []
   },
   {
@@ -23,7 +23,7 @@ const dormOptions = [
     shortText: "Variety of quick meals",
     description: "Food trucks would offer affordable and diverse food options right near the dorms.",
     tag: "Daily Life",
-    image: "assets/food-trucks.svg",
+    image: "images/food-truck.jpg.jpeg",
     reviews: []
   },
   {
@@ -32,7 +32,7 @@ const dormOptions = [
     shortText: "Shops below dorms",
     description: "An underground mall could include cafes, stores, and services for convenience.",
     tag: "Convenience",
-    image: "assets/underground-mall.svg",
+    image: "images/tenjin-underground-mall.jpg.jpeg",
     reviews: []
   },
   {
@@ -41,7 +41,7 @@ const dormOptions = [
     shortText: "Organized parking space",
     description: "A multi-level parking building would solve parking issues and improve safety.",
     tag: "Infrastructure",
-    image: "assets/parking-building.svg",
+    image: "images/a-brief-history-of-parking-garage-design_1.jpg.jpeg",
     reviews: []
   },
   {
@@ -50,7 +50,7 @@ const dormOptions = [
     shortText: "Comfortable movie space",
     description: "A theatre with bean bags would create a cozy place for movies and events.",
     tag: "Entertainment",
-    image: "assets/theatre-bean-bags.svg",
+    image: "images/theatre.png",
     reviews: []
   },
   {
@@ -59,7 +59,7 @@ const dormOptions = [
     shortText: "Sing and play music",
     description: "A karaoke and music room would help students express themselves and have fun.",
     tag: "Social Life",
-    image: "assets/music-karaoke.svg",
+    image: "images/Karaoke.jpg.jpeg",
     reviews: []
   },
   {
@@ -68,7 +68,7 @@ const dormOptions = [
     shortText: "Easy transport around campus",
     description: "Golf carts would make it easier for students to move around large dorm areas.",
     tag: "Transport",
-    image: "assets/golf-carts.svg",
+    image: "images/Yamaha_Drive_2_golf_car.jpg.jpeg",
     reviews: []
   }
 ];
