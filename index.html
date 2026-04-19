@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Explore ideas for improving university dorm life, rate each idea, and leave feedback."
+  />
+  <title>Dorm Upgrade Ideas</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>Ideas to Improve University Dorms</h1>
+    <p>Explore practical and fun upgrades that could make dorm life better for students.</p>
+    <p>Open any idea to rate it, read feedback, and add your own review.</p>
+  </header>
+
+  <main>
+    <section class="intro-box" id="homeSection" aria-labelledby="optionsHeading">
+      <h2 class="section-title" id="optionsHeading">Choose an option</h2>
+      <div class="options-grid" id="optionsGrid" role="list"></div>
+    </section>
+
+    <section
+      class="review-panel"
+      id="reviewPanel"
+      aria-labelledby="detailTitle"
+      aria-live="polite"
+      hidden
+    >
+      <button type="button" class="back-btn" id="backBtn">Back to all ideas</button>
+      <img class="detail-image" id="detailImage" alt="" />
+      <h2 id="detailTitle"></h2>
+      <p class="detail-tag" id="detailTag"></p>
+      <p id="detailDescription"></p>
+
+      <div class="rating-summary" id="ratingSummary"></div>
+      <p class="server-status" id="serverStatus" role="status" aria-live="polite"></p>
+
+      <form id="reviewForm" novalidate>
+        <fieldset class="rating-fieldset">
+          <legend>Rate this idea</legend>
+          <div class="stars" id="starContainer" role="radiogroup" aria-label="Select a rating"></div>
+          <p class="form-hint" id="ratingHint">Choose 1 to 5 stars before submitting your review.</p>
+        </fieldset>
+
+        <label class="input-label" for="reviewerName">Your name</label>
+        <input type="text" id="reviewerName" name="reviewerName" placeholder="Your name" required />
+
+        <label class="input-label" for="reviewText">Your review</label>
+        <textarea
+          id="reviewText"
+          name="reviewText"
+          placeholder="Share what you think about this dorm improvement idea"
+          required
+          rows="5"
+        ></textarea>
+
+        <p class="form-error" id="formError" role="alert"></p>
+        <button type="submit" class="submit-btn">Submit review</button>
+      </form>
+
+      <section class="reviews-section" aria-labelledby="reviewsHeading">
+        <h3 id="reviewsHeading">Student reviews</h3>
+        <div id="reviewsContainer"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
