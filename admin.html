@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Admin moderation page for dorm feature reviews."
+  />
+  <title>Dorm Reviews Admin</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header admin-header">
+    <nav class="top-nav" aria-label="Site links">
+      <a class="top-nav-link" href="index.html">Back to site</a>
+    </nav>
+    <div class="header-badge">Admin moderation</div>
+    <h1>Review moderation dashboard</h1>
+    <p class="header-lead">Sign in with the admin username and password to review feedback, remove spam, and keep the community page clean.</p>
+  </header>
+
+  <main class="admin-main">
+    <section class="intro-box admin-login-card" id="loginSection" aria-labelledby="loginHeading">
+      <p class="eyebrow">Secure access</p>
+      <h2 class="section-title" id="loginHeading">Admin sign in</h2>
+      <p class="section-copy">Use the admin username and password you created in Supabase Auth. The username is mapped to a private admin email behind the scenes.</p>
+
+      <form id="adminLoginForm" class="admin-form" novalidate>
+        <label class="input-label" for="adminUsername">Username</label>
+        <input type="text" id="adminUsername" name="adminUsername" placeholder="Admin username" required />
+
+        <label class="input-label" for="adminPassword">Password</label>
+        <input type="password" id="adminPassword" name="adminPassword" placeholder="Password" required />
+
+        <p class="form-error" id="adminLoginError" role="alert"></p>
+        <button type="submit" class="submit-btn">Sign in</button>
+      </form>
+    </section>
+
+    <section class="review-panel admin-panel" id="adminPanel" hidden aria-labelledby="adminHeading">
+      <div class="admin-toolbar">
+        <div>
+          <p class="eyebrow">Moderation tools</p>
+          <h2 class="section-title" id="adminHeading">Manage all reviews</h2>
+          <p class="section-copy">Review the latest comments across every dorm feature and remove anything inappropriate or off-topic.</p>
+        </div>
+        <div class="admin-actions">
+          <button type="button" class="back-btn" id="refreshAdminBtn">Refresh reviews</button>
+          <button type="button" class="submit-btn admin-logout-btn" id="logoutAdminBtn">Log out</button>
+        </div>
+      </div>
+
+      <div class="rating-summary admin-summary" id="adminSummary"></div>
+      <p class="server-status" id="adminStatus" role="status" aria-live="polite"></p>
+
+      <div class="admin-review-list" id="adminReviewList"></div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

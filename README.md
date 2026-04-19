@@ -42,3 +42,30 @@ Your site should publish at:
 - `config.js` must contain your real Supabase values before shared reviews will work.
 - The Supabase anon key is meant for client-side use, but your Row Level Security policies must stay enabled.
 - GitHub Pages is static-only, so this project now runs as a frontend-only site backed by Supabase.
+
+## Admin moderation
+
+This project also includes an admin page at:
+
+`admin.html`
+
+The admin sign-in screen uses a username and password interface, but it signs in securely with Supabase Auth behind the scenes.
+
+### Default admin mapping
+
+- Username: `admin`
+- Hidden admin email: `admin@dorm.local`
+
+You can change both values in `config.js`, but they must match the account and SQL policy you create in Supabase.
+
+### One-time admin setup
+
+1. Open Supabase Authentication.
+2. Create a user with the email `admin@dorm.local` and your chosen password.
+3. Run `supabase-admin-setup.sql` in the SQL editor.
+4. Open `admin.html`.
+5. Sign in with:
+   - Username: `admin`
+   - Password: the password you created for `admin@dorm.local`
+
+Only that admin account will be able to delete reviews.
