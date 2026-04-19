@@ -1,53 +1,44 @@
 # Dorm Upgrade Ideas
 
-A simple dorm feature review site with:
+A static dorm feature review site designed for:
 
-- Static frontend
-- Node/Express backend
-- Shared review storage in `data/reviews.json`
+- GitHub Pages hosting
+- Supabase shared storage
+- Browser-only frontend deployment
 
-## Run locally
+## Free hosting architecture
 
-1. Install dependencies:
+GitHub Pages hosts the HTML, CSS, and JavaScript.
+Supabase stores reviews in a hosted Postgres database.
 
-```powershell
-npm install
-```
+This avoids the need for a paid Node server.
 
-2. Start the app:
+## Supabase setup
 
-```powershell
-npm start
-```
+1. Create a free project at [Supabase](https://supabase.com/).
+2. Open the SQL editor.
+3. Run the contents of `supabase-schema.sql`.
+4. In your Supabase project settings, copy:
+   - Project URL
+   - Anon/public key
+5. Paste them into `config.js`.
 
-3. Open:
+## GitHub Pages setup
 
-`http://localhost:3000`
+1. Push this repository to GitHub.
+2. In the repository, open `Settings` -> `Pages`.
+3. Under `Build and deployment`, choose:
+   - Source: `Deploy from a branch`
+   - Branch: `main`
+   - Folder: `/ (root)`
+4. Save.
 
-## Deploy on Render from GitHub
+Your site should publish at:
 
-This repo includes a `render.yaml` file so Render can read the service settings directly from GitHub.
+`https://20SHA07.github.io/dorm-upgrade-ideas/`
 
-Important:
+## Important notes
 
-- GitHub Pages cannot run this backend.
-- Render's default filesystem is ephemeral.
-- This setup uses a persistent disk mounted at `/opt/render/project/src/data` so reviews survive restarts and deploys.
-- According to Render's docs, persistent disks require a paid Render web service plan.
-
-### Steps
-
-1. Create a new GitHub repository.
-2. Push this project to that repository.
-3. Go to [Render Dashboard](https://dashboard.render.com/).
-4. Click `New` -> `Blueprint`.
-5. Connect your GitHub account and choose this repository.
-6. Render will detect `render.yaml`.
-7. Create the service and wait for the first deploy.
-8. Open the public Render URL and test submitting a review.
-
-## Notes
-
-- Reviews are shared for everyone who uses the deployed site.
-- Reviews are stored in the server data file, not in each visitor's browser.
-- If you want a stronger long-term setup later, the next upgrade would be moving from JSON storage to PostgreSQL.
+- `config.js` must contain your real Supabase values before shared reviews will work.
+- The Supabase anon key is meant for client-side use, but your Row Level Security policies must stay enabled.
+- GitHub Pages is static-only, so this project now runs as a frontend-only site backed by Supabase.

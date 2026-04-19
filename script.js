@@ -94,6 +94,17 @@ let selectedOption = null;
 let currentRating = 0;
 let lastOpenedButton = null;
 
+const supabaseConfig = window.APP_CONFIG || {};
+const hasSupabaseConfig =
+  typeof supabaseConfig.supabaseUrl === "string" &&
+  supabaseConfig.supabaseUrl.includes("supabase.co") &&
+  typeof supabaseConfig.supabaseAnonKey === "string" &&
+  !supabaseConfig.supabaseAnonKey.startsWith("YOUR-");
+
+const supabaseClient = hasSupabaseConfig
+  ? window.supabase.createClient(supabaseConfig.supabaseUrl, supabaseConfig.supabaseAnonKey)
+  : null;
+
 function buildCard(option) {
   const card = document.createElement("button");
   card.type = "button";
@@ -190,7 +201,6 @@ function createStarButtons() {
       setRating(value);
     });
     button.addEventListener("keydown", handleStarKeydown);
-
     starsBox.appendChild(button);
   }
 }
@@ -289,31 +299,40 @@ function renderReviews() {
     });
 }
 
-async function loadReviewsFromServer() {
+async function loadReviewsFromDatabase() {
+  if (!supabaseClient) {
+    setServerStatus("Add your Supabase URL and anon key in config.js to enable shared reviews.", true);
+    return;
+  }
+
   setServerStatus("Loading shared reviews...");
 
-  try {
-    const response = await fetch("/api/reviews");
+  const { data, error } = await supabaseClient
+    .from("reviews")
+    .select("feature_id, reviewer_name, review_text, rating, created_at")
+    .order("created_at", { ascending: true });
 
-    if (!response.ok) {
-      throw new Error("Failed to load shared reviews.");
-    }
-
-    const reviewData = await response.json();
-
-    dormOptions.forEach((option) => {
-      const reviews = reviewData[String(option.id)];
-      option.reviews = Array.isArray(reviews) ? reviews : [];
-    });
-
-    renderCards();
-    renderRatingSummary();
-    renderReviews();
-    setServerStatus("Shared reviews are live for everyone using this site.");
-  } catch (error) {
+  if (error) {
     console.error(error);
-    setServerStatus("Could not connect to the server. Start the Node app to use shared reviews.", true);
+    setServerStatus("Could not load shared reviews. Check your Supabase table and policies.", true);
+    return;
   }
+
+  dormOptions.forEach((option) => {
+    option.reviews = data
+      .filter((review) => review.feature_id === option.id)
+      .map((review) => ({
+        name: review.reviewer_name,
+        text: review.review_text,
+        rating: review.rating,
+        createdAt: review.created_at
+      }));
+  });
+
+  renderCards();
+  renderRatingSummary();
+  renderReviews();
+  setServerStatus("Shared reviews are live from Supabase.");
 }
 
 async function handleSubmit(event) {
@@ -336,43 +355,35 @@ async function handleSubmit(event) {
     return;
   }
 
+  if (!supabaseClient) {
+    formError.textContent = "Supabase is not configured yet.";
+    return;
+  }
+
   formError.textContent = "";
   setServerStatus("Saving review...");
 
-  try {
-    const response = await fetch(`/api/features/${selectedOption.id}/reviews`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        name: name.slice(0, 60),
-        text: text.slice(0, 500),
-        rating: currentRating
-      })
-    });
+  const payload = {
+    feature_id: selectedOption.id,
+    reviewer_name: name.slice(0, 60),
+    review_text: text.slice(0, 500),
+    rating: currentRating
+  };
 
-    const payload = await response.json();
+  const { error } = await supabaseClient.from("reviews").insert(payload);
 
-    if (!response.ok) {
-      throw new Error(payload.error || "Could not save the review.");
-    }
-
-    selectedOption.reviews = Array.isArray(payload.reviews) ? payload.reviews : [];
-    renderCards();
-    renderRatingSummary();
-    renderReviews();
-
-    form.reset();
-    currentRating = 0;
-    updateStars();
-    setServerStatus("Review saved and shared with everyone viewing the site.");
-    nameInput.focus();
-  } catch (error) {
+  if (error) {
     console.error(error);
-    formError.textContent = error.message || "Could not save the review.";
-    setServerStatus("The review could not be saved to the server.", true);
+    formError.textContent = "Could not save the review.";
+    setServerStatus("The review could not be saved. Check your Supabase setup.", true);
+    return;
   }
+
+  await loadReviewsFromDatabase();
+  form.reset();
+  currentRating = 0;
+  updateStars();
+  nameInput.focus();
 }
 
 function setServerStatus(message, isError = false) {
@@ -385,4 +396,4 @@ form.addEventListener("submit", handleSubmit);
 
 createStarButtons();
 renderCards();
-loadReviewsFromServer();
+loadReviewsFromDatabase();
