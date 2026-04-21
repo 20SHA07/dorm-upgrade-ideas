@@ -22,7 +22,7 @@ on public.reviews
 for insert
 to public
 with check (
-  feature_id between 1 and 8
+  feature_id between 1 and 11
   and char_length(trim(reviewer_name)) between 1 and 60
   and char_length(trim(review_text)) between 1 and 500
   and rating between 1 and 5

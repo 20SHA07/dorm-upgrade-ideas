@@ -6,7 +6,10 @@ const dormFeatures = {
   5: "Parking Lot Building",
   6: "Theatre with Bean Bags",
   7: "Music & Karaoke",
-  8: "Golf Carts"
+  8: "Golf Carts",
+  9: "Masjid",
+  10: "Creative Room",
+  11: "Common Lounge Area"
 };
 
 const appConfig = window.APP_CONFIG || {};

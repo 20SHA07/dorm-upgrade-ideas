@@ -70,6 +70,33 @@ const dormOptions = [
     tag: "Transport",
     image: "images/golf-carts.jpg",
     reviews: []
+  },
+  {
+    id: 9,
+    title: "Masjid",
+    shortText: "Dedicated prayer and reflection space",
+    description: "A masjid would give students a peaceful and accessible place for prayer, reflection, and community gatherings.",
+    tag: "Spiritual Life",
+    image: "images/masjid.jpg",
+    reviews: []
+  },
+  {
+    id: 10,
+    title: "Creative Room",
+    shortText: "Art and music studio space",
+    description: "A creative room for art and music would give students a space to express themselves, collaborate, and explore their talents.",
+    tag: "Creativity",
+    image: "images/creative-room.jpg",
+    reviews: []
+  },
+  {
+    id: 11,
+    title: "Common Lounge Area",
+    shortText: "Majlis and board game zone",
+    description: "A common lounge with a majlis and board game area would create a welcoming space for students to relax, connect, and spend time together.",
+    tag: "Community",
+    image: "images/common-lounge.jpg",
+    reviews: []
   }
 ];
 
