@@ -8,6 +8,9 @@
     content="Explore ideas for improving university dorm life, rate each idea, and leave feedback."
   />
   <title>Dorm Upgrade Ideas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -31,6 +34,12 @@
         <span class="hero-stat-label">Average score</span>
         <strong class="hero-stat-value" id="overallAverage">0.0/5</strong>
       </div>
+    </div>
+    <div class="hero-ribbon" aria-label="Dorm experience focus areas">
+      <span class="hero-ribbon-item">Wellbeing</span>
+      <span class="hero-ribbon-item">Creativity</span>
+      <span class="hero-ribbon-item">Community</span>
+      <span class="hero-ribbon-item">Convenience</span>
     </div>
   </header>
 
@@ -108,6 +117,11 @@
       </div>
     </section>
   </main>
+
+  <footer class="site-footer">
+    <p class="site-footer-title">Dorm Experience Review Board</p>
+    <p class="site-footer-copy">A shared space for students to explore, rate, and shape the future of the new dorms.</p>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
