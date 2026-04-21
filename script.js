@@ -108,6 +108,7 @@ const desc = document.getElementById("detailDescription");
 const detailTag = document.getElementById("detailTag");
 const detailImage = document.getElementById("detailImage");
 const ratingSummary = document.getElementById("ratingSummary");
+const detailHighlights = document.getElementById("detailHighlights");
 const reviewsBox = document.getElementById("reviewsContainer");
 const starsBox = document.getElementById("starContainer");
 const form = document.getElementById("reviewForm");
@@ -162,11 +163,22 @@ function buildCard(option) {
   featureLabel.textContent = `Feature ${String(option.id).padStart(2, "0")}`;
   topLine.appendChild(featureLabel);
 
+  const topLineActions = document.createElement("div");
+  topLineActions.className = "card-topline-actions";
+
+  const cardBadge = getCardBadge(option.reviews);
+  const badge = document.createElement("span");
+  badge.className = `card-badge ${cardBadge.tone}`;
+  badge.textContent = cardBadge.label;
+  topLineActions.appendChild(badge);
+
   const arrow = document.createElement("span");
   arrow.className = "card-arrow";
   arrow.setAttribute("aria-hidden", "true");
   arrow.textContent = "\u2197";
-  topLine.appendChild(arrow);
+  topLineActions.appendChild(arrow);
+
+  topLine.appendChild(topLineActions);
 
   body.appendChild(topLine);
 
@@ -238,6 +250,7 @@ function openOption(optionId) {
   detailTag.textContent = selectedOption.tag;
   detailImage.src = selectedOption.image;
   detailImage.alt = `${selectedOption.title} illustration`;
+  renderDetailHighlights();
 
   currentRating = 0;
   updateStars();
@@ -335,6 +348,39 @@ function renderRatingSummary() {
   reviewsMeta.textContent = `${count} review${count === 1 ? "" : "s"} so far`;
 }
 
+function renderDetailHighlights() {
+  if (!selectedOption) {
+    detailHighlights.innerHTML = "";
+    return;
+  }
+
+  const reviewCount = selectedOption.reviews.length;
+  const averageLabel = reviewCount === 0 ? "New idea" : `${getReviewAverage(selectedOption.reviews).toFixed(1)}/5`;
+  const highlights = [
+    { label: "Focus area", value: selectedOption.tag },
+    { label: "Student rating", value: averageLabel },
+    { label: "Feedback", value: `${reviewCount} review${reviewCount === 1 ? "" : "s"}` }
+  ];
+
+  detailHighlights.innerHTML = "";
+  highlights.forEach((item) => {
+    const block = document.createElement("div");
+    block.className = "detail-highlight";
+
+    const label = document.createElement("span");
+    label.className = "detail-highlight-label";
+    label.textContent = item.label;
+
+    const value = document.createElement("strong");
+    value.className = "detail-highlight-value";
+    value.textContent = item.value;
+
+    block.appendChild(label);
+    block.appendChild(value);
+    detailHighlights.appendChild(block);
+  });
+}
+
 function renderReviews() {
   reviewsBox.innerHTML = "";
 
@@ -354,6 +400,19 @@ function renderReviews() {
       item.className = "review-item";
       item.style.setProperty("--review-delay", `${index * 55}ms`);
 
+      const meta = document.createElement("div");
+      meta.className = "review-meta";
+
+      const metaBadge = document.createElement("span");
+      metaBadge.className = "review-meta-badge";
+      metaBadge.textContent = selectedOption.tag;
+      meta.appendChild(metaBadge);
+
+      const metaDate = document.createElement("span");
+      metaDate.className = "review-date";
+      metaDate.textContent = formatReviewDate(review.createdAt);
+      meta.appendChild(metaDate);
+
       const header = document.createElement("div");
       header.className = "review-item-header";
 
@@ -371,6 +430,7 @@ function renderReviews() {
       text.className = "review-text";
       text.textContent = review.text;
 
+      item.appendChild(meta);
       item.appendChild(header);
       item.appendChild(text);
       reviewsBox.appendChild(item);
@@ -483,16 +543,48 @@ function renderOverviewStats() {
   overallAverage.textContent = average;
 }
 
+function getReviewAverage(reviews) {
+  return reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length;
+}
+
 function getCardAverageLabel(reviews) {
   if (!reviews.length) {
     return "No ratings yet";
   }
 
-  const average = (
-    reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
-  ).toFixed(1);
+  const average = getReviewAverage(reviews).toFixed(1);
 
   return `${average}/5 average rating`;
+}
+
+function getCardBadge(reviews) {
+  if (!reviews.length) {
+    return { label: "Fresh idea", tone: "tone-soft" };
+  }
+
+  const average = getReviewAverage(reviews);
+
+  if (average >= 4.5 && reviews.length >= 2) {
+    return { label: "Top rated", tone: "tone-gold" };
+  }
+
+  if (average >= 4) {
+    return { label: "Loved", tone: "tone-warm" };
+  }
+
+  return { label: "Active", tone: "tone-olive" };
+}
+
+function formatReviewDate(dateString) {
+  if (!dateString) {
+    return "Just now";
+  }
+
+  return new Date(dateString).toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+    year: "numeric"
+  });
 }
 
 backBtn.addEventListener("click", closeOption);

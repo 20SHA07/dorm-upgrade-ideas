@@ -21,6 +21,7 @@ const passwordInput = document.getElementById("adminPassword");
 const loginError = document.getElementById("adminLoginError");
 const adminStatus = document.getElementById("adminStatus");
 const adminSummary = document.getElementById("adminSummary");
+const adminMetrics = document.getElementById("adminMetrics");
 const adminReviewList = document.getElementById("adminReviewList");
 const refreshAdminBtn = document.getElementById("refreshAdminBtn");
 const logoutAdminBtn = document.getElementById("logoutAdminBtn");
@@ -123,6 +124,7 @@ async function loadAdminReviews() {
 
 function renderAdminSummary(reviews) {
   const count = reviews.length;
+  adminMetrics.innerHTML = "";
 
   if (count === 0) {
     adminSummary.textContent = "There are no reviews to moderate yet.";
@@ -131,6 +133,31 @@ function renderAdminSummary(reviews) {
 
   const average = (reviews.reduce((sum, review) => sum + review.rating, 0) / count).toFixed(1);
   adminSummary.textContent = `${count} total review${count === 1 ? "" : "s"} across all features. Current average rating: ${average}/5.`;
+
+  const latestReview = reviews[0];
+  const highestFeature = getTopFeatureLabel(reviews);
+  const metrics = [
+    { label: "Total reviews", value: String(count) },
+    { label: "Latest activity", value: formatAdminDate(latestReview.created_at) },
+    { label: "Most discussed", value: highestFeature }
+  ];
+
+  metrics.forEach((metric) => {
+    const item = document.createElement("div");
+    item.className = "admin-metric";
+
+    const label = document.createElement("span");
+    label.className = "admin-metric-label";
+    label.textContent = metric.label;
+
+    const value = document.createElement("strong");
+    value.className = "admin-metric-value";
+    value.textContent = metric.value;
+
+    item.appendChild(label);
+    item.appendChild(value);
+    adminMetrics.appendChild(item);
+  });
 }
 
 function renderAdminReviews(reviews) {
@@ -153,13 +180,13 @@ function renderAdminReviews(reviews) {
     meta.className = "admin-review-meta";
 
     const feature = document.createElement("span");
-    feature.className = "detail-tag";
+    feature.className = "detail-tag admin-feature-tag";
     feature.textContent = dormFeatures[review.feature_id] || `Feature ${review.feature_id}`;
     meta.appendChild(feature);
 
     const timestamp = document.createElement("span");
     timestamp.className = "admin-review-date";
-    timestamp.textContent = new Date(review.created_at).toLocaleString();
+    timestamp.textContent = formatAdminDateTime(review.created_at);
     meta.appendChild(timestamp);
 
     const header = document.createElement("div");
@@ -225,4 +252,31 @@ function showAdminPanel() {
 function setAdminStatus(message, isError = false) {
   adminStatus.textContent = message;
   adminStatus.classList.toggle("error", isError);
+}
+
+function formatAdminDate(dateString) {
+  return new Date(dateString).toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric"
+  });
+}
+
+function formatAdminDateTime(dateString) {
+  return new Date(dateString).toLocaleString(undefined, {
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit"
+  });
+}
+
+function getTopFeatureLabel(reviews) {
+  const counts = reviews.reduce((map, review) => {
+    const key = String(review.feature_id);
+    map[key] = (map[key] || 0) + 1;
+    return map;
+  }, {});
+
+  const topFeatureId = Object.keys(counts).sort((a, b) => counts[b] - counts[a])[0];
+  return dormFeatures[topFeatureId] || "Mixed feedback";
 }
