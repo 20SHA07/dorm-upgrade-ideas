@@ -151,28 +151,64 @@ function buildCard(option) {
   image.loading = "lazy";
   card.appendChild(image);
 
+  const body = document.createElement("div");
+  body.className = "card-body";
+
+  const topLine = document.createElement("div");
+  topLine.className = "card-topline";
+
+  const featureLabel = document.createElement("span");
+  featureLabel.className = "card-feature-label";
+  featureLabel.textContent = `Feature ${String(option.id).padStart(2, "0")}`;
+  topLine.appendChild(featureLabel);
+
+  const arrow = document.createElement("span");
+  arrow.className = "card-arrow";
+  arrow.setAttribute("aria-hidden", "true");
+  arrow.textContent = "\u2197";
+  topLine.appendChild(arrow);
+
+  body.appendChild(topLine);
+
   const heading = document.createElement("h3");
   heading.textContent = option.title;
-  card.appendChild(heading);
+  body.appendChild(heading);
 
   const text = document.createElement("p");
   text.textContent = option.shortText;
-  card.appendChild(text);
+  text.className = "card-description";
+  body.appendChild(text);
+
+  const meta = document.createElement("div");
+  meta.className = "card-meta";
 
   const tag = document.createElement("span");
   tag.className = "tag";
   tag.textContent = option.tag;
-  card.appendChild(tag);
+  meta.appendChild(tag);
 
   const average = document.createElement("div");
   average.className = "card-rating-summary";
   average.textContent = getCardAverageLabel(option.reviews);
-  card.appendChild(average);
+  meta.appendChild(average);
+
+  body.appendChild(meta);
+
+  const footer = document.createElement("div");
+  footer.className = "card-footer";
 
   const count = document.createElement("p");
   count.className = "card-review-count";
   count.textContent = `${option.reviews.length} review${option.reviews.length === 1 ? "" : "s"}`;
-  card.appendChild(count);
+  footer.appendChild(count);
+
+  const hint = document.createElement("span");
+  hint.className = "card-action-hint";
+  hint.textContent = "Open details";
+  footer.appendChild(hint);
+
+  body.appendChild(footer);
+  card.appendChild(body);
 
   card.addEventListener("click", () => {
     lastOpenedButton = card;

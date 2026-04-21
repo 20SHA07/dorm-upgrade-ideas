@@ -377,7 +377,9 @@ main,
 
 .option-card .tag,
 .option-card .card-rating-summary,
-.option-card .card-review-count {
+.option-card .card-review-count,
+.option-card .card-arrow,
+.option-card .card-action-hint {
   transition: transform 0.24s ease, opacity 0.24s ease;
 }
 
@@ -397,9 +399,13 @@ main,
 .option-card:hover .tag,
 .option-card:hover .card-rating-summary,
 .option-card:hover .card-review-count,
+.option-card:hover .card-arrow,
+.option-card:hover .card-action-hint,
 .option-card:focus-visible .tag,
 .option-card:focus-visible .card-rating-summary,
-.option-card:focus-visible .card-review-count {
+.option-card:focus-visible .card-review-count,
+.option-card:focus-visible .card-arrow,
+.option-card:focus-visible .card-action-hint {
   transform: translateY(-2px);
 }
 
@@ -432,10 +438,60 @@ textarea:focus-visible,
   filter: saturate(1.06) contrast(1.02);
 }
 
+.card-body {
+  position: relative;
+  display: grid;
+  gap: 13px;
+  padding: 6px 2px 2px;
+}
+
+.card-topline,
+.card-meta,
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.card-topline {
+  margin-bottom: 2px;
+}
+
+.card-feature-label,
+.card-action-hint {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.card-feature-label {
+  color: rgba(79, 23, 25, 0.62);
+}
+
+.card-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(143, 40, 40, 0.09), rgba(197, 107, 63, 0.12));
+  border: 1px solid rgba(143, 40, 40, 0.1);
+  color: var(--brand-deep);
+  font-size: 1.02rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.46);
+}
+
 .option-card h3 {
   margin: 0 0 8px;
   font-size: 1.22rem;
   color: #43201d;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.78rem;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
 }
 
 .option-card p {
@@ -444,10 +500,23 @@ textarea:focus-visible,
   color: #655449;
 }
 
+.card-description {
+  min-height: 48px;
+  max-width: 30ch;
+}
+
+.card-meta {
+  align-items: stretch;
+  flex-wrap: wrap;
+  padding: 14px 0 12px;
+  border-top: 1px solid rgba(143, 40, 40, 0.08);
+  border-bottom: 1px solid rgba(143, 40, 40, 0.08);
+}
+
 .tag,
 .detail-tag {
-  display: inline-block;
-  margin-top: 14px;
+  display: inline-flex;
+  align-items: center;
   background: rgba(143, 40, 40, 0.08);
   color: var(--brand);
   padding: 7px 12px;
@@ -460,7 +529,6 @@ textarea:focus-visible,
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-top: 14px;
   padding: 9px 12px;
   border-radius: 999px;
   background: linear-gradient(180deg, rgba(217, 166, 70, 0.18), rgba(217, 166, 70, 0.1));
@@ -476,10 +544,28 @@ textarea:focus-visible,
 }
 
 .card-review-count {
-  margin-top: 14px;
   font-size: 0.86rem;
   color: #9b5f3c;
   font-weight: 700;
+}
+
+.card-footer {
+  color: #7f6251;
+}
+
+.card-action-hint {
+  color: rgba(79, 23, 25, 0.72);
+}
+
+.option-card:hover .card-arrow,
+.option-card:focus-visible .card-arrow {
+  transform: translate(2px, -2px);
+  background: linear-gradient(180deg, rgba(143, 40, 40, 0.13), rgba(197, 107, 63, 0.18));
+}
+
+.option-card:hover .card-action-hint,
+.option-card:focus-visible .card-action-hint {
+  color: var(--brand-deep);
 }
 
 .review-panel[hidden] {
